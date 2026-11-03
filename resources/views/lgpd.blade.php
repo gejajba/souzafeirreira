@@ -4,7 +4,7 @@
     <main class="min-h-screen pt-20 bg-surface">
         <!-- Hero Editorial Institucional -->
         <section class="bg-primary-container text-surface-bright py-space-2xl md:py-space-3xl border-b border-border-dark relative overflow-hidden">
-            <div class="max-w-[1440px] mx-auto px-margin-mobile md:px-space-xl lg:px-margin relative z-10">
+            <div class="max-w-[1040px] mx-auto px-margin-mobile md:px-space-xl lg:px-margin relative z-10">
                 <!-- Breadcrumbs -->
                 <nav aria-label="Navegação estrutural" class="flex items-center gap-2 font-caption text-caption text-secondary-fixed-dim uppercase tracking-wider mb-space-md">
                     <a href="{{ route('home') }}" class="hover:text-surface-bright transition-colors">Início</a>
@@ -12,7 +12,7 @@
                     <span class="text-surface-bright">Privacidade &amp; LGPD</span>
                 </nav>
 
-                <div class="max-w-3xl">
+                <div class="w-full">
                     <span class="inline-flex items-center gap-2 px-3 py-1 bg-tertiary-container text-on-tertiary-container font-caption text-caption uppercase tracking-[0.2em] mb-4 border border-border-dark">
                         <span class="material-symbols-outlined text-[15px] text-secondary-fixed-dim">verified_user</span>
                         Lei Geral de Proteção de Dados (Lei nº 13.709/2018)
@@ -20,7 +20,7 @@
                     <h1 class="font-headline-lg text-headline-lg md:text-display-sm text-surface-bright font-bold leading-tight mb-space-md">
                         Política de Privacidade &amp; Governança de Dados
                     </h1>
-                    <p class="font-body-lg text-body-lg text-on-primary-container leading-relaxed">
+                    <p class="font-body-lg text-body-lg text-on-primary-container leading-relaxed max-w-3xl">
                         Compromisso institucional do escritório {{ $settings->site_title }} com a transparência, salvaguarda de dados pessoais e preservação do sigilo profissional inerente ao exercício da advocacia.
                     </p>
                     <div class="mt-space-md flex flex-wrap items-center gap-4 text-caption text-secondary-fixed-dim">

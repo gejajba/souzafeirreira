@@ -33,6 +33,14 @@ test('homepage renders successfully with all official content from souzapereira.
     $response->assertSee('img/souza-foto.jpeg');
     $response->assertSee('img/banner-novo.png');
 
+    // Hero texto sobreposto e visível
+    $response->assertSee('Atendimento Personalizado');
+    $response->assertSee('Consultas online e assessoria presencial especializada.');
+
+    // Rodapé com mapa clicável gratuito (Google Maps)
+    $response->assertSee('https://www.google.com/maps/search/?api=1&query=', false);
+    $response->assertSee('Abrir endereço no mapa (Google Maps)');
+
     // Rodapé com créditos Legis Studio e sem textos removidos
     $response->assertSee('Feito pela <span class="text-surface-bright font-medium">Legis Studio</span>.', false);
     $response->assertDontSee('Aviso de Confidencialidade');

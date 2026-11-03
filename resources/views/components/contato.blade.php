@@ -56,18 +56,23 @@
                 </div>
 
                 <!-- Mapa Visual de Localização em Gravataí -->
-                <div
-                    class="w-full h-44 bg-cover bg-center shadow-inner relative border border-border-dark"
+                <a
+                    href="https://www.google.com/maps/search/?api=1&query={{ urlencode($settings->address) }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="block w-full h-44 bg-cover bg-center shadow-inner relative border border-border-dark group overflow-hidden cursor-pointer"
+                    title="Clique para abrir endereço no Google Maps"
                     data-location="{{ $settings->address }}"
                     style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB8DeShQTzFIPQzXG1CGrroc9PmJeBS63UC_oDt3i3UlCxPEYBcFfFppETPhAxFH818nKImiAnV_zVTkxt7uCqiBuPz-oT9L0yDJ6RzHjn_aNv6_8Ljw4vSoF3OOBpixCOAJvzlsIGitun0mOh_IZNpqcVlAl2wSxL7DTkWQJZxoVbV-fEKzOtqT4i1jee_7n0ae2zei3vV4AFfpujPu-JWU2VuOGsGbx9hBN5nfGp5')"
                 >
-                    <div class="absolute inset-0 bg-primary/40 flex items-center justify-center">
-                        <div class="bg-surface px-space-md py-space-xs text-primary font-body-sm text-body-sm font-semibold flex items-center gap-space-xs shadow-md">
+                    <div class="absolute inset-0 bg-primary/40 group-hover:bg-primary/20 transition-colors flex items-center justify-center">
+                        <div class="bg-surface px-space-md py-space-xs text-primary font-body-sm text-body-sm font-semibold flex items-center gap-space-xs shadow-md group-hover:scale-105 transition-transform">
                             <span class="material-symbols-outlined text-secondary text-[18px]">location_on</span>
-                            Centro de Gravataí / RS
+                            <span>Centro de Gravataí / RS — Abrir no Mapa</span>
+                            <span class="material-symbols-outlined text-[14px]">open_in_new</span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <!-- Coluna Direita: Formulário de Contato -->

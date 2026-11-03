@@ -63,14 +63,26 @@
                         Sede &amp; Atendimento
                     </h3>
                     <div class="flex flex-col gap-space-md">
-                        <div class="flex items-start gap-space-sm">
-                            <span class="material-symbols-outlined text-secondary-fixed-dim text-[20px] shrink-0 mt-0.5">location_on</span>
+                        <a
+                            href="https://www.google.com/maps/search/?api=1&query={{ urlencode($settings->address) }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="group flex items-start gap-space-sm p-3 -m-3 rounded border border-transparent hover:border-border-dark hover:bg-tertiary-container/30 transition-all focus:outline-none"
+                            title="Ver localização no Google Maps"
+                        >
+                            <span class="material-symbols-outlined text-secondary-fixed-dim text-[22px] shrink-0 mt-0.5 group-hover:text-surface-bright transition-colors">location_on</span>
                             <div class="font-body-sm text-body-sm text-on-primary-container leading-relaxed">
-                                <span class="text-surface-bright font-medium block">Gravataí / Rio Grande do Sul</span>
-                                {{ $settings->address }}<br>
-                                Atendimento presencial mediante agendamento e consultas online.
+                                <div class="flex items-center gap-1.5 text-surface-bright font-medium">
+                                    <span>Gravataí / Rio Grande do Sul</span>
+                                    <span class="material-symbols-outlined text-[15px] text-secondary-fixed-dim group-hover:text-surface-bright transition-transform group-hover:translate-x-0.5">open_in_new</span>
+                                </div>
+                                <span class="group-hover:text-surface-bright transition-colors">{{ $settings->address }}</span><br>
+                                <span class="text-caption text-secondary-fixed-dim group-hover:underline flex items-center gap-1 mt-1 font-medium">
+                                    <span class="material-symbols-outlined text-[15px]">map</span>
+                                    Abrir endereço no mapa (Google Maps) &rarr;
+                                </span>
                             </div>
-                        </div>
+                        </a>
 
                         <div class="flex items-start gap-space-sm">
                             <span class="material-symbols-outlined text-secondary-fixed-dim text-[20px] shrink-0 mt-0.5">chat</span>

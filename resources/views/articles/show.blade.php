@@ -44,7 +44,7 @@
                 <div class="mt-space-lg pt-space-md border-t border-border-light flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div class="flex items-center gap-3">
                         <img
-                            src="{{ asset('img/souza-foto.jpeg') }}"
+                            src="{{ $settings->about_founder_image_url }}"
                             alt="{{ $settings->about_founder_name }}"
                             class="w-12 h-12 rounded-full object-cover object-top border border-secondary"
                         >

@@ -40,6 +40,16 @@ test('inactive article returns 404 in public detail page', function () {
     $response->assertNotFound();
 });
 
+test('article route generates url even if slug is temporarily empty', function () {
+    $article = new Article([
+        'title' => 'Artigo Sem Slug Definido',
+    ]);
+    $article->id = 99;
+
+    $url = route('articles.show', $article);
+    expect($url)->toContain('artigo-sem-slug-definido');
+});
+
 test('admin can create and update articles with full content', function () {
     $admin = User::first();
     $this->actingAs($admin);

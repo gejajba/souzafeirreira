@@ -2,7 +2,10 @@
 
 use App\Models\ContactMessage;
 use App\Models\Service;
+use App\Models\SiteSetting;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 test('guest is redirected to login when accessing admin dashboard', function () {
     $response = $this->get('/admin');
@@ -64,6 +67,86 @@ test('admin can update site settings', function () {
         'site_title' => 'Souza Pereira Advocacia & Associados',
         'hero_title' => 'Novo Título do Hero',
     ]);
+});
+
+test('admin can upload and remove hero and about founder images', function () {
+    Storage::fake('public');
+
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    $heroFile = UploadedFile::fake()->image('custom-hero.png', 1200, 800);
+    $founderFile = UploadedFile::fake()->image('custom-marcelo.jpg', 600, 800);
+
+    $response = $this->put('/admin/settings', [
+        'site_title' => 'Souza Pereira Advocacia',
+        'site_subtitle' => 'Advocacia Estratégica',
+        'meta_description' => 'Meta description',
+        'location_badge' => 'Gravataí / RS',
+        'hero_title' => 'Compromisso e Ética',
+        'hero_subtitle' => 'Subtítulo do hero',
+        'metric_1_number' => '2020',
+        'metric_1_label' => 'Fundação',
+        'metric_2_number' => '100%',
+        'metric_2_label' => 'Direto',
+        'metric_3_number' => 'BR',
+        'metric_3_label' => 'Abrangente',
+        'about_founder_name' => 'Marcelo Luiz S. Pereira',
+        'about_founder_title' => 'Advogado Fundador',
+        'about_founder_oab' => 'OAB/RS',
+        'about_text_1' => 'Texto 1',
+        'about_text_2' => 'Texto 2',
+        'phone' => '(51) 99920-1927',
+        'whatsapp_url' => 'https://api.whatsapp.com/send/?phone=5551999201927',
+        'email' => 'contato@souzapereira.com',
+        'address' => 'Gravataí/RS',
+        'hero_image' => $heroFile,
+        'about_founder_image' => $founderFile,
+    ]);
+
+    $response->assertRedirect(route('admin.settings.edit'));
+
+    $settings = SiteSetting::current();
+    expect($settings->hero_image)->not->toBeNull();
+    expect($settings->about_founder_image)->not->toBeNull();
+    Storage::disk('public')->assertExists($settings->hero_image);
+    Storage::disk('public')->assertExists($settings->about_founder_image);
+
+    // Verify home renders custom image urls
+    $homeResponse = $this->get('/');
+    $homeResponse->assertSee($settings->hero_image_url);
+    $homeResponse->assertSee($settings->about_founder_image_url);
+
+    // Verify removing custom images
+    $removeResponse = $this->put('/admin/settings', [
+        'site_title' => 'Souza Pereira Advocacia',
+        'site_subtitle' => 'Advocacia Estratégica',
+        'location_badge' => 'Gravataí / RS',
+        'hero_title' => 'Compromisso e Ética',
+        'hero_subtitle' => 'Subtítulo do hero',
+        'metric_1_number' => '2020',
+        'metric_1_label' => 'Fundação',
+        'metric_2_number' => '100%',
+        'metric_2_label' => 'Direto',
+        'metric_3_number' => 'BR',
+        'metric_3_label' => 'Abrangente',
+        'about_founder_name' => 'Marcelo Luiz S. Pereira',
+        'about_founder_title' => 'Advogado Fundador',
+        'about_founder_oab' => 'OAB/RS',
+        'about_text_1' => 'Texto 1',
+        'about_text_2' => 'Texto 2',
+        'phone' => '(51) 99920-1927',
+        'whatsapp_url' => 'https://api.whatsapp.com/send/?phone=5551999201927',
+        'email' => 'contato@souzapereira.com',
+        'address' => 'Gravataí/RS',
+        'remove_hero_image' => '1',
+        'remove_about_founder_image' => '1',
+    ]);
+
+    $removeResponse->assertRedirect(route('admin.settings.edit'));
+    $settings->refresh();
+    expect($settings->hero_image)->toBeNull();
+    expect($settings->about_founder_image)->toBeNull();
 });
 
 test('admin can create, update and delete a service', function () {

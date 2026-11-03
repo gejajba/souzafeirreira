@@ -27,6 +27,30 @@ class Article extends Model
         return 'slug';
     }
 
+    /**
+     * Garante que a chave da rota nunca seja nula ou vazia.
+     */
+    public function getRouteKey(): mixed
+    {
+        return $this->slug ?: (Str::slug($this->title) ?: (string) $this->id);
+    }
+
+    /**
+     * Resolução de Route Model Binding (por slug ou por ID).
+     */
+    public function resolveRouteBinding($value, $field = null): ?self
+    {
+        $field = $field ?? $this->getRouteKeyName();
+
+        if ($field === 'slug') {
+            return $this->where('slug', $value)
+                ->orWhere('id', is_numeric($value) ? (int) $value : 0)
+                ->first();
+        }
+
+        return parent::resolveRouteBinding($value, $field);
+    }
+
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('active', true);

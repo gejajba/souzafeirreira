@@ -61,10 +61,12 @@
             <div class="lg:col-span-5 relative mt-space-lg lg:mt-0">
                 <div class="relative w-full aspect-[4/5] bg-surface-container overflow-hidden shadow-xl border border-border-light group">
                     <picture>
-                        <source srcset="{{ asset('img/banner-novo.png') }}" media="(min-width: 1024px)">
-                        <source srcset="{{ asset('img/banner-mobile.png') }}" media="(min-width: 600px)">
+                        @if(!$settings->hero_image)
+                            <source srcset="{{ asset('img/banner-novo.png') }}" media="(min-width: 1024px)">
+                            <source srcset="{{ asset('img/banner-mobile.png') }}" media="(min-width: 600px)">
+                        @endif
                         <img
-                            src="{{ asset('img/banner-novo.png') }}"
+                            src="{{ $settings->hero_image_url }}"
                             alt="{{ $settings->site_title }} - Atendimento Jurídico Especializado"
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         >

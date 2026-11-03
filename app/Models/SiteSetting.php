@@ -4,12 +4,58 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SiteSetting extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    /**
+     * URL pública da imagem do hero (banner).
+     */
+    public function getHeroImageUrlAttribute(): string
+    {
+        if ($this->hero_image) {
+            if (Str::startsWith($this->hero_image, ['http://', 'https://'])) {
+                return $this->hero_image;
+            }
+
+            if (Storage::disk('public')->exists($this->hero_image)) {
+                return Storage::disk('public')->url($this->hero_image);
+            }
+
+            if (file_exists(public_path($this->hero_image))) {
+                return asset($this->hero_image);
+            }
+        }
+
+        return asset('img/banner-novo.png');
+    }
+
+    /**
+     * URL pública do retrato do fundador (Marcelo).
+     */
+    public function getAboutFounderImageUrlAttribute(): string
+    {
+        if ($this->about_founder_image) {
+            if (Str::startsWith($this->about_founder_image, ['http://', 'https://'])) {
+                return $this->about_founder_image;
+            }
+
+            if (Storage::disk('public')->exists($this->about_founder_image)) {
+                return Storage::disk('public')->url($this->about_founder_image);
+            }
+
+            if (file_exists(public_path($this->about_founder_image))) {
+                return asset($this->about_founder_image);
+            }
+        }
+
+        return asset('img/souza-foto.jpeg');
+    }
 
     /**
      * Obter a instância única de configurações do site.

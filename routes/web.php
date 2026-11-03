@@ -20,7 +20,7 @@ Route::redirect('/politica-de-privacidade', '/lgpd');
 
 // Artigos e Publicações Jurídicas (Público)
 Route::get('/artigos', [ArticleController::class, 'index'])->name('articles.index');
-Route::get('/artigos/{article:slug}', [ArticleController::class, 'show'])->name('articles.show');
+Route::get('/artigos/{article}', [ArticleController::class, 'show'])->name('articles.show');
 
 // Atalho de login padrão
 Route::get('login', fn () => redirect()->route('admin.login'))->name('login');

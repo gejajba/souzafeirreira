@@ -21,7 +21,7 @@
                     <img
                         class="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                         alt="{{ $settings->about_founder_name }} - {{ $settings->site_title }}"
-                        src="{{ asset('img/souza-foto.jpeg') }}"
+                        src="{{ $settings->about_founder_image_url }}"
                     >
                     <div class="absolute bottom-0 inset-x-0 p-space-md bg-gradient-to-t from-primary-container/90 via-primary-container/60 to-transparent">
                         <span class="font-headline-sm text-headline-sm text-surface-bright block leading-tight">

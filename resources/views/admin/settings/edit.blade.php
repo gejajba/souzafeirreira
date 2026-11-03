@@ -3,7 +3,7 @@
         Configurações Gerais &amp; Textos Institucionais
     </x-slot:header>
 
-    <form action="{{ route('admin.settings.update') }}" method="POST" class="space-y-8 max-w-5xl">
+    <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data" class="space-y-8 max-w-5xl">
         @csrf
         @method('PUT')
 
@@ -47,6 +47,30 @@
                 <div class="md:col-span-2">
                     <label class="block text-xs font-bold uppercase text-primary mb-1" for="hero_subtitle">Texto de Apoio (Hero)</label>
                     <textarea id="hero_subtitle" name="hero_subtitle" rows="3" required class="w-full bg-surface-subtle p-2.5 text-sm border border-border-light focus:outline-none focus:border-secondary">{{ old('hero_subtitle', $settings->hero_subtitle) }}</textarea>
+                </div>
+
+                <!-- Imagem do Hero (Banner) -->
+                <div class="md:col-span-2 bg-surface p-4 border border-border-light space-y-3">
+                    <span class="block text-xs font-bold uppercase text-primary">Imagem de Destaque do Hero (Banner)</span>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <div class="w-36 h-20 bg-surface-container overflow-hidden border border-border-light shrink-0 relative group shadow-sm">
+                            <img id="hero_preview" src="{{ $settings->hero_image_url }}" alt="Preview Hero" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 space-y-2">
+                            <input type="file" id="hero_image" name="hero_image" accept="image/png,image/jpeg,image/webp" class="w-full text-xs text-on-surface file:mr-3 file:py-1.5 file:px-3 file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-surface-bright hover:file:bg-secondary cursor-pointer">
+                            <div id="hero_status" class="text-xs min-h-[18px]"></div>
+                            @error('hero_image')
+                                <p class="text-xs text-rose-600 font-medium">{{ $message }}</p>
+                            @enderror
+                            <p class="text-[11px] text-text-muted">Formatos aceitos: JPG, PNG, WEBP (limite de 2MB por envio). Fotos pesadas são compactadas automaticamente pelo navegador.</p>
+                            @if($settings->hero_image)
+                                <label class="inline-flex items-center gap-2 text-xs text-rose-700 cursor-pointer pt-1">
+                                    <input type="checkbox" name="remove_hero_image" value="1" class="rounded-none accent-rose-700">
+                                    <span>Remover imagem personalizada e restaurar banner padrão</span>
+                                </label>
+                            @endif
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Métricas -->
@@ -96,6 +120,31 @@
                     <label class="block text-xs font-bold uppercase text-primary mb-1" for="about_founder_oab">Selo OAB / Registro</label>
                     <input type="text" id="about_founder_oab" name="about_founder_oab" value="{{ old('about_founder_oab', $settings->about_founder_oab) }}" required class="w-full bg-surface-subtle p-2.5 text-sm border border-border-light">
                 </div>
+
+                <!-- Foto do Fundador (Marcelo) -->
+                <div class="md:col-span-2 bg-surface p-4 border border-border-light space-y-3">
+                    <span class="block text-xs font-bold uppercase text-primary">Foto Oficial do Dr. Marcelo (Seção Sobre Nós &amp; Artigos)</span>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                        <div class="w-24 h-28 bg-surface-container overflow-hidden border border-border-light shrink-0 relative group shadow-sm">
+                            <img id="founder_preview" src="{{ $settings->about_founder_image_url }}" alt="Preview Fundador" class="w-full h-full object-cover object-top">
+                        </div>
+                        <div class="flex-1 space-y-2">
+                            <input type="file" id="about_founder_image" name="about_founder_image" accept="image/png,image/jpeg,image/webp" class="w-full text-xs text-on-surface file:mr-3 file:py-1.5 file:px-3 file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-surface-bright hover:file:bg-secondary cursor-pointer">
+                            <div id="founder_status" class="text-xs min-h-[18px]"></div>
+                            @error('about_founder_image')
+                                <p class="text-xs text-rose-600 font-medium">{{ $message }}</p>
+                            @enderror
+                            <p class="text-[11px] text-text-muted">Formatos aceitos: JPG, PNG, WEBP (limite de 2MB por envio). Proporção recomendada: 4:5. Imagens grandes são compactadas automaticamente.</p>
+                            @if($settings->about_founder_image)
+                                <label class="inline-flex items-center gap-2 text-xs text-rose-700 cursor-pointer pt-1">
+                                    <input type="checkbox" name="remove_about_founder_image" value="1" class="rounded-none accent-rose-700">
+                                    <span>Remover foto personalizada e restaurar foto original</span>
+                                </label>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
                 <div class="md:col-span-2">
                     <label class="block text-xs font-bold uppercase text-primary mb-1" for="about_text_1">Texto Institucional 1 (Histórico &amp; Fundação)</label>
                     <textarea id="about_text_1" name="about_text_1" rows="3" required class="w-full bg-surface-subtle p-2.5 text-sm border border-border-light">{{ old('about_text_1', $settings->about_text_1) }}</textarea>
@@ -152,4 +201,92 @@
             </button>
         </div>
     </form>
+
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function setupImageOptimizer(inputId, previewId, statusId, maxDimension = 1600) {
+                const input = document.getElementById(inputId);
+                const preview = document.getElementById(previewId);
+                const status = document.getElementById(statusId);
+
+                if (!input || !preview || !status) return;
+
+                input.addEventListener('change', function (e) {
+                    const file = e.target.files && e.target.files[0];
+                    if (!file) return;
+
+                    // Exibir preview imediato
+                    const objectUrl = URL.createObjectURL(file);
+                    preview.src = objectUrl;
+
+                    const originalSizeKb = Math.round(file.size / 1024);
+
+                    // Se a imagem já for menor que 1.5MB, está pronta para envio
+                    if (file.size <= 1.5 * 1024 * 1024) {
+                        status.innerHTML = `<span class="text-emerald-700 font-medium">✓ Imagem pronta para envio (${originalSizeKb} KB).</span>`;
+                        return;
+                    }
+
+                    // Se for maior que 1.5MB, compacta automaticamente no navegador via Canvas
+                    status.innerHTML = `<span class="text-secondary font-medium">⏳ Otimizando imagem (${originalSizeKb} KB)...</span>`;
+
+                    const img = new Image();
+                    img.onload = function () {
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > maxDimension || height > maxDimension) {
+                            if (width > height) {
+                                height = Math.round((height * maxDimension) / width);
+                                width = maxDimension;
+                            } else {
+                                width = Math.round((width * maxDimension) / height);
+                                height = maxDimension;
+                            }
+                        }
+
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        canvas.toBlob(function (blob) {
+                            if (!blob) {
+                                status.innerHTML = `<span class="text-amber-700">Arquivo original mantido (${originalSizeKb} KB).</span>`;
+                                return;
+                            }
+
+                            const optimizedSizeKb = Math.round(blob.size / 1024);
+                            const optimizedFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", {
+                                type: "image/jpeg",
+                                lastModified: Date.now()
+                            });
+
+                            try {
+                                const dataTransfer = new DataTransfer();
+                                dataTransfer.items.add(optimizedFile);
+                                input.files = dataTransfer.files;
+                                preview.src = URL.createObjectURL(blob);
+                                status.innerHTML = `<span class="text-emerald-700 font-medium">✓ Otimizada de ${originalSizeKb} KB para ${optimizedSizeKb} KB (pronta para envio).</span>`;
+                            } catch (err) {
+                                status.innerHTML = `<span class="text-emerald-700 font-medium">✓ Imagem selecionada (${originalSizeKb} KB).</span>`;
+                            }
+                        }, 'image/jpeg', 0.85);
+                    };
+
+                    img.onerror = function () {
+                        status.innerHTML = `<span class="text-rose-600">Erro ao ler arquivo de imagem.</span>`;
+                    };
+
+                    img.src = objectUrl;
+                });
+            }
+
+            setupImageOptimizer('about_founder_image', 'founder_preview', 'founder_status', 1400);
+            setupImageOptimizer('hero_image', 'hero_preview', 'hero_status', 1800);
+        });
+    </script>
+    @endpush
 </x-admin.layouts.app>

@@ -32,4 +32,21 @@ test('homepage renders successfully with all official content from souzapereira.
     $response->assertSee('img/logo.jpeg');
     $response->assertSee('img/souza-foto.jpeg');
     $response->assertSee('img/banner-novo.png');
+
+    // Rodapé com créditos Legis Studio e sem textos removidos
+    $response->assertSee('Feito pela <span class="text-surface-bright font-medium">Legis Studio</span>.', false);
+    $response->assertDontSee('Aviso de Confidencialidade');
+    $response->assertDontSee('Em conformidade com o Provimento nº 205/2021 do CFOAB');
+    $response->assertDontSee('Inscrição OAB/RS • Atendimento Personalizado');
+});
+
+test('lgpd page renders successfully with privacy governance details', function () {
+    $response = $this->get('/lgpd');
+
+    $response->assertOk();
+    $response->assertSee('Política de Privacidade &amp; Governança de Dados', false);
+    $response->assertSee('Lei Geral de Proteção de Dados (Lei nº 13.709/2018)');
+    $response->assertSee('Identificação do Controlador');
+    $response->assertSee('Canal do Encarregado pelo Tratamento de Dados (DPO)');
+    $response->assertSee('Feito pela <span class="text-surface-bright font-medium">Legis Studio</span>.', false);
 });

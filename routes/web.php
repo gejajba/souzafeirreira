@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 // Rotas Públicas do Site
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/contato', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/lgpd', [HomeController::class, 'lgpd'])->name('lgpd');
+Route::redirect('/politica-de-privacidade', '/lgpd');
 
 // Artigos e Publicações Jurídicas (Público)
 Route::get('/artigos', [ArticleController::class, 'index'])->name('articles.index');

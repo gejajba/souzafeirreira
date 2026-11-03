@@ -22,4 +22,14 @@ class HomeController extends Controller
 
         return view('welcome', compact('settings', 'services', 'pillars', 'articles'));
     }
+
+    /**
+     * Exibe a página institucional de Política de Privacidade e Proteção de Dados (LGPD).
+     */
+    public function lgpd(): View
+    {
+        $settings = SiteSetting::current();
+
+        return view('lgpd', compact('settings'));
+    }
 }

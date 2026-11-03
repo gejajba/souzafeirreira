@@ -10,10 +10,12 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 // Rotas Públicas do Site
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::post('/contato', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/lgpd', [HomeController::class, 'lgpd'])->name('lgpd');
 Route::redirect('/politica-de-privacidade', '/lgpd');

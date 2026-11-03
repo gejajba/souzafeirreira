@@ -45,6 +45,13 @@ test('homepage renders successfully with all official content from souzapereira.
     $response->assertSee('https://www.google.com/maps/search/?api=1&query=', false);
     $response->assertSee('Abrir endereço no mapa (Google Maps)');
 
+    // SEO, Open Graph & Schema.org Local SEO
+    $response->assertSee('<link rel="canonical"', false);
+    $response->assertSee('property="og:type" content="website"', false);
+    $response->assertSee('name="geo.region" content="BR-RS"', false);
+    $response->assertSee('name="geo.placename" content="Gravataí"', false);
+    $response->assertSee('"@type": "LegalService"', false);
+
     // Rodapé com créditos Legis Studio e sem textos removidos
     $response->assertSee('Feito pela <span class="text-surface-bright font-medium">Legis Studio</span>.', false);
     $response->assertDontSee('Aviso de Confidencialidade');
@@ -61,4 +68,16 @@ test('lgpd page renders successfully with privacy governance details', function 
     $response->assertSee('Identificação do Controlador');
     $response->assertSee('Canal do Encarregado pelo Tratamento de Dados (DPO)');
     $response->assertSee('Feito pela <span class="text-surface-bright font-medium">Legis Studio</span>.', false);
+});
+
+test('sitemap.xml is generated with valid xml structure and article routes', function () {
+    $response = $this->get('/sitemap.xml');
+
+    $response->assertOk();
+    $response->assertHeader('Content-Type', 'application/xml; charset=utf-8');
+    $response->assertSee('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">', false);
+    $response->assertSee(route('home'));
+    $response->assertSee(route('articles.index'));
+    $response->assertSee(route('lgpd'));
+    $response->assertSee('parametros-judiciais-revisao-contratos-financiamento');
 });

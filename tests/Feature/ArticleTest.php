@@ -26,6 +26,9 @@ test('article detail page renders with full content and author details', functio
     $response->assertSee('Marcelo Luiz S. Pereira');
     $response->assertSee('Tema 246 do STJ');
     $response->assertSee('Falar no WhatsApp');
+    $response->assertSee('property="og:type" content="article"', false);
+    $response->assertSee('"@type": "Article"', false);
+    $response->assertSee('<link rel="canonical" href="'.route('articles.show', $article).'"', false);
 });
 
 test('inactive article returns 404 in public detail page', function () {

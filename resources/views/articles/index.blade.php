@@ -1,4 +1,10 @@
-<x-layouts.app :title="'Artigos & Conteúdos Jurídicos | ' . $settings->site_title">
+<x-layouts.app
+    :title="'Artigos & Publicações Jurídicas | ' . $settings->site_title"
+    :description="'Análises jurídicas, teses judiciais e orientações preventivas em direito bancário, trabalhista, previdenciário e cível por Souza Pereira Advocacia.'"
+    :canonical="route('articles.index')"
+    :keywords="'artigos jurídicos, publicações oab, teses stj, direito bancário gravataí, advocacia consultiva'"
+    :settings="$settings"
+>
     <x-header :settings="$settings" />
 
     <main class="w-full pt-28 pb-space-3xl bg-surface min-h-[calc(100vh-20rem)]">

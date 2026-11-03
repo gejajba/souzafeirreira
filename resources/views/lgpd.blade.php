@@ -1,4 +1,10 @@
-<x-layouts.app :settings="$settings" :title="'Política de Privacidade e Proteção de Dados (LGPD) | ' . $settings->site_title">
+<x-layouts.app
+    :settings="$settings"
+    :title="'Política de Privacidade e Proteção de Dados (LGPD) | ' . $settings->site_title"
+    :description="'Diretrizes de conformidade com a LGPD (Lei 13.709/2018), segurança da informação e sigilo profissional do escritório Souza Pereira Advocacia.'"
+    :canonical="route('lgpd')"
+    :keywords="'lgpd, política de privacidade, encarregado dpo, sigilo advocatício gravataí, souza pereira advocacia'"
+>
     <x-header :settings="$settings" />
 
     <main class="min-h-screen pt-20 bg-surface">

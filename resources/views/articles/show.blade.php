@@ -1,4 +1,48 @@
-<x-layouts.app :title="$article->title . ' | ' . $settings->site_title">
+@php
+    $articleSchema = json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'Article',
+        'headline' => $article->title,
+        'description' => $article->summary,
+        'image' => $settings->hero_image_url,
+        'datePublished' => ($article->published_at ?? $article->created_at)->toIso8601String(),
+        'dateModified' => $article->updated_at->toIso8601String(),
+        'author' => [
+            '@type' => 'Person',
+            'name' => $settings->about_founder_name,
+            'jobTitle' => $settings->about_founder_title,
+            'image' => $settings->about_founder_image_url,
+        ],
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => $settings->site_title,
+            'logo' => [
+                '@type' => 'ImageObject',
+                'url' => asset('img/logo.jpeg'),
+            ],
+        ],
+        'mainEntityOfPage' => [
+            '@type' => 'WebPage',
+            '@id' => route('articles.show', $article),
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+@endphp
+
+<x-layouts.app
+    :title="$article->title"
+    :description="$article->summary"
+    :keywords="$article->category . ', ' . ($article->tag ? $article->tag . ', ' : '') . 'direito bancário, advogado gravataí, ' . $article->title"
+    :canonical="route('articles.show', $article)"
+    :ogType="'article'"
+    :ogImage="$settings->hero_image_url"
+    :settings="$settings"
+>
+    <x-slot:schema>
+        <script type="application/ld+json">
+        {!! $articleSchema !!}
+        </script>
+    </x-slot:schema>
+
     <x-header :settings="$settings" />
 
     <main class="w-full pt-28 pb-space-3xl bg-surface min-h-[calc(100vh-20rem)]">

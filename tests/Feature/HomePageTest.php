@@ -33,6 +33,10 @@ test('homepage renders successfully with all official content from souzapereira.
     $response->assertSee('img/souza-foto.jpeg');
     $response->assertSee('img/banner-novo.png');
 
+    // Favicon oficial
+    $response->assertSee('favicon.ico');
+    $response->assertSee('favicon-32x32.png');
+
     // Hero texto sobreposto e visível
     $response->assertSee('Atendimento Personalizado');
     $response->assertSee('Consultas online e assessoria presencial especializada.');

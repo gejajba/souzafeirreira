@@ -8,6 +8,12 @@
     <title>{{ $title ?? 'Souza Pereira Advocacia | Advocacia Corporativa e Estratégica' }}</title>
     <meta name="description" content="Souza Pereira Advocacia — Escritório dedicado à orientação e atuação jurídica com seriedade, atenção individualizada e compromisso profissional. Sede em Gravataí/RS com atuação abrangente.">
 
+    <!-- Favicon Oficial Souza Pereira Advocacia -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+
     <!-- Preconnect & Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

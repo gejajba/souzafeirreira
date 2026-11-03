@@ -72,24 +72,13 @@
                         >
                     </picture>
                     <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent"></div>
-                    <div class="absolute bottom-0 inset-x-0 p-space-lg text-on-primary z-10 sm:max-w-[75%]">
+                    <div class="absolute bottom-0 inset-x-0 p-space-lg md:p-space-xl text-on-primary z-10">
                         <span class="font-label-caps text-label-caps text-secondary-fixed tracking-[0.2em] uppercase block mb-1 drop-shadow-sm">
                             Atendimento Personalizado
                         </span>
-                        <p class="font-body-sm text-body-sm text-surface-bright leading-snug drop-shadow-sm">
+                        <p class="font-body-sm text-body-sm text-surface-bright leading-relaxed drop-shadow-sm max-w-md">
                             {{ $settings->location_badge }} | Consultas online e assessoria presencial especializada.
                         </p>
-                    </div>
-                </div>
-
-                <!-- Detalhe Flutuante de Confiança (posicionado à direita para não sobrepor o texto) -->
-                <div class="hidden sm:flex absolute -bottom-6 right-2 sm:-bottom-6 sm:-right-6 bg-surface-container-lowest p-space-md shadow-xl max-w-xs items-center gap-space-sm border border-border-light z-20">
-                    <div class="w-10 h-10 bg-surface-subtle flex items-center justify-center shrink-0">
-                        <span class="material-symbols-outlined text-secondary text-[22px]">balance</span>
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="font-caption text-caption text-primary font-semibold">OAB/RS Inscrito</span>
-                        <span class="font-caption text-caption text-text-muted">Conformidade e Sigilo Absoluto</span>
                     </div>
                 </div>
             </div>

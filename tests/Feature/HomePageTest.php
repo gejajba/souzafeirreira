@@ -29,12 +29,9 @@ test('homepage renders successfully with all official content from souzapereira.
     $response->assertSee('images/equipes/marcelo-souza-pereira.png', false);
     $response->assertSee('images/equipes/juliano-michielin-rodrigue.png', false);
     $response->assertSee('images/equipes/lourdes-boeira-batista.png', false);
-    $response->assertSee('aspect-video', false);
-    $response->assertSee('>Nossa Equipe<', false);
-    $response->assertDontSee('id="sobre"', false);
-    $response->assertDontSee('01 — SOBRE NÓS');
-    $response->assertDontSee('Advocacia de excelência fundada em relações de confiança e proximidade.');
-    $response->assertDontSee('#sobre', false);
+    $response->assertSee('aspect-[4/5]', false);
+    $response->assertSee('01 — SOBRE NÓS');
+    $response->assertSee('Advocacia de excelência fundada em relações de confiança e proximidade.');
 
     // Serviços com texto oficial exato
     $response->assertSee('Busca e Apreensão');

@@ -85,7 +85,7 @@ class SiteSetting extends Model
             'phone' => '(51) 99920-1927',
             'whatsapp_url' => 'https://api.whatsapp.com/send/?phone=5551999201927&text&type=phone_number&app_absent=0',
             'email' => 'contato@souzapereira.com',
-            'address' => 'Rua Ary Tubbs 569 sala 303 Centro – Gravataí/RS Cep 94.010-180',
+            'address' => 'Av. Alexandrino de Alencar, 949, Sala 01, Bairro Morada do Vale I, Gravataí/RS, CEP: 94085-120',
         ]);
     }
 }

@@ -41,7 +41,7 @@ return new class extends Migration
             $table->string('phone')->default('(51) 99920-1927');
             $table->string('whatsapp_url')->default('https://api.whatsapp.com/send/?phone=5551999201927&text&type=phone_number&app_absent=0');
             $table->string('email')->default('contato@souzapereira.com');
-            $table->string('address')->default('Rua Ary Tubbs 569 sala 303 Centro – Gravataí/RS Cep 94.010-180');
+            $table->string('address')->default('Av. Alexandrino de Alencar, 949, Sala 01, Bairro Morada do Vale I, Gravataí/RS, CEP: 94085-120');
 
             $table->timestamps();
         });

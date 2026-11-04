@@ -26,6 +26,7 @@
         <nav aria-label="Navegação institucional principal" class="hidden lg:flex items-center gap-space-lg">
             <a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors py-space-xs" href="{{ route('home') }}#home">Home</a>
             <a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors py-space-xs" href="{{ route('home') }}#sobre">Sobre Nós</a>
+            <a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors py-space-xs" href="{{ route('home') }}#equipe">Equipe</a>
             <a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors py-space-xs" href="{{ route('home') }}#servicos">Serviços</a>
             <a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors py-space-xs" href="{{ route('articles.index') }}">Artigos</a>
             <a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors py-space-xs" href="{{ route('home') }}#contato">Contato</a>
@@ -67,6 +68,7 @@
         <nav class="flex flex-col gap-space-md">
             <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-1" href="{{ route('home') }}#home">Home</a>
             <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-1" href="{{ route('home') }}#sobre">Sobre Nós</a>
+            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-1" href="{{ route('home') }}#equipe">Equipe</a>
             <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-1" href="{{ route('home') }}#servicos">Serviços</a>
             <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-1" href="{{ route('articles.index') }}">Artigos</a>
             <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-1" href="{{ route('home') }}#contato">Contato</a>

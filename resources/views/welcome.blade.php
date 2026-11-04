@@ -5,6 +5,7 @@
         <div class="flex flex-col w-full">
             <x-hero :settings="$settings" />
             <x-institucional :settings="$settings" />
+            <x-equipe />
             <x-areas-atuacao :services="$services" :settings="$settings" />
             <x-pilares :pillars="$pillars" />
             <x-artigos :articles="$articles" />

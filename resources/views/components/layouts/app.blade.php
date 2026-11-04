@@ -38,10 +38,10 @@
         'priceRange' => '$$',
         'address' => [
             '@type' => 'PostalAddress',
-            'streetAddress' => 'Rua Ary Tubbs, 569 - Sala 303, Centro',
+            'streetAddress' => $settings->address,
             'addressLocality' => 'Gravataí',
             'addressRegion' => 'RS',
-            'postalCode' => '94010-180',
+            'postalCode' => '94085-120',
             'addressCountry' => 'BR',
         ],
         'geo' => [

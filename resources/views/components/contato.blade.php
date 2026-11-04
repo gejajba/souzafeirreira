@@ -68,7 +68,7 @@
                     <div class="absolute inset-0 bg-primary/40 group-hover:bg-primary/20 transition-colors flex items-center justify-center">
                         <div class="bg-surface px-space-md py-space-xs text-primary font-body-sm text-body-sm font-semibold flex items-center gap-space-xs shadow-md group-hover:scale-105 transition-transform">
                             <span class="material-symbols-outlined text-secondary text-[18px]">location_on</span>
-                            <span>Centro de Gravataí / RS — Abrir no Mapa</span>
+                            <span>Morada do Vale I, Gravataí / RS — Abrir no Mapa</span>
                             <span class="material-symbols-outlined text-[14px]">open_in_new</span>
                         </div>
                     </div>

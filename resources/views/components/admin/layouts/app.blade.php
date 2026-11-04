@@ -60,6 +60,11 @@
                 Serviços &amp; Áreas
             </a>
 
+            <a href="{{ route('admin.team-members.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded text-sm font-medium transition-colors {{ request()->routeIs('admin.team-members.*') ? 'bg-tertiary-container text-surface-bright border-l-4 border-secondary' : 'text-on-primary-container hover:bg-tertiary-container/50 hover:text-surface-bright' }}">
+                <span class="material-symbols-outlined text-[20px]">groups</span>
+                Nossa Equipe
+            </a>
+
             <a
                 href="{{ route('admin.messages.index') }}"
                 class="flex items-center justify-between px-3 py-2.5 rounded text-sm font-medium transition-colors {{ request()->routeIs('admin.messages.*') ? 'bg-tertiary-container text-surface-bright border-l-4 border-secondary' : 'text-on-primary-container hover:bg-tertiary-container/50 hover:text-surface-bright' }}"

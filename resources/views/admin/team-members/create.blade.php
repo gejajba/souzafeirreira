@@ -1,0 +1,1 @@
+<x-admin.layouts.app><x-slot:header>Novo profissional</x-slot:header><form method="POST" enctype="multipart/form-data" action="{{ route('admin.team-members.store') }}">@csrf @include('admin.team-members.form',['teamMember'=>null])<button>Salvar</button></form></x-admin.layouts.app>

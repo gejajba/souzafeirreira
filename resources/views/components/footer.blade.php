@@ -39,10 +39,7 @@
                         <a class="font-body-sm text-body-sm text-on-primary-container hover:text-surface-bright transition-colors" href="{{ route('home') }}#home">Home</a>
                     </li>
                     <li class="leading-normal">
-                        <a class="font-body-sm text-body-sm text-on-primary-container hover:text-surface-bright transition-colors" href="{{ route('home') }}#sobre">Sobre Nós</a>
-                    </li>
-                    <li class="leading-normal">
-                        <a class="font-body-sm text-body-sm text-on-primary-container hover:text-surface-bright transition-colors" href="{{ route('home') }}#equipe">Equipe</a>
+                        <a class="font-body-sm text-body-sm text-on-primary-container hover:text-surface-bright transition-colors" href="{{ route('home') }}#equipe">Nossa Equipe</a>
                     </li>
                     <li class="leading-normal">
                         <a class="font-body-sm text-body-sm text-on-primary-container hover:text-surface-bright transition-colors" href="{{ route('home') }}#servicos">Serviços</a>

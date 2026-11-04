@@ -4,8 +4,7 @@
     <main class="w-full pt-20 bg-surface min-h-[calc(100vh-20rem)]">
         <div class="flex flex-col w-full">
             <x-hero :settings="$settings" />
-            <x-institucional :settings="$settings" />
-            <x-equipe />
+            <x-equipe :members="$teamMembers" />
             <x-areas-atuacao :services="$services" :settings="$settings" />
             <x-pilares :pillars="$pillars" />
             <x-artigos :articles="$articles" />

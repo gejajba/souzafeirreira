@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PillarController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
@@ -54,6 +55,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         // Gestão de Pilares e Artigos
         Route::resource('pillars', PillarController::class);
+        Route::resource('team-members', TeamMemberController::class)->except(['show']);
         Route::resource('articles', AdminArticleController::class);
     });
 });

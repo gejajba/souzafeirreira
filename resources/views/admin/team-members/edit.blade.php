@@ -1,0 +1,1 @@
+<x-admin.layouts.app><x-slot:header>Editar profissional</x-slot:header><form method="POST" enctype="multipart/form-data" action="{{ route('admin.team-members.update',$teamMember) }}">@csrf @method('PUT') @include('admin.team-members.form')<button>Atualizar</button></form></x-admin.layouts.app>

@@ -69,7 +69,7 @@ test('admin can update site settings', function () {
     ]);
 });
 
-test('admin can upload and remove hero and about founder images', function () {
+test('admin can upload and remove site images', function () {
     Storage::fake('public');
 
     $user = User::factory()->create();
@@ -77,6 +77,8 @@ test('admin can upload and remove hero and about founder images', function () {
 
     $heroFile = UploadedFile::fake()->image('custom-hero.png', 1200, 800);
     $founderFile = UploadedFile::fake()->image('custom-marcelo.jpg', 600, 800);
+    $headerLogoFile = UploadedFile::fake()->image('header-logo.png', 400, 120);
+    $footerLogoFile = UploadedFile::fake()->image('footer-logo.png', 400, 120);
 
     $response = $this->put('/admin/settings', [
         'site_title' => 'Souza Pereira Advocacia',
@@ -102,6 +104,8 @@ test('admin can upload and remove hero and about founder images', function () {
         'address' => 'Gravataí/RS',
         'hero_image' => $heroFile,
         'about_founder_image' => $founderFile,
+        'header_logo' => $headerLogoFile,
+        'footer_logo' => $footerLogoFile,
     ]);
 
     $response->assertRedirect(route('admin.settings.edit'));
@@ -109,13 +113,19 @@ test('admin can upload and remove hero and about founder images', function () {
     $settings = SiteSetting::current();
     expect($settings->hero_image)->not->toBeNull();
     expect($settings->about_founder_image)->not->toBeNull();
+    expect($settings->header_logo)->not->toBeNull();
+    expect($settings->footer_logo)->not->toBeNull();
     Storage::disk('public')->assertExists($settings->hero_image);
     Storage::disk('public')->assertExists($settings->about_founder_image);
+    Storage::disk('public')->assertExists($settings->header_logo);
+    Storage::disk('public')->assertExists($settings->footer_logo);
 
     // Verify home renders custom image urls
     $homeResponse = $this->get('/');
     $homeResponse->assertSee($settings->hero_image_url);
     $homeResponse->assertSee($settings->about_founder_image_url);
+    $homeResponse->assertSee($settings->header_logo_url);
+    $homeResponse->assertSee($settings->footer_logo_url);
 
     // Verify removing custom images
     $removeResponse = $this->put('/admin/settings', [
@@ -141,12 +151,16 @@ test('admin can upload and remove hero and about founder images', function () {
         'address' => 'Gravataí/RS',
         'remove_hero_image' => '1',
         'remove_about_founder_image' => '1',
+        'remove_header_logo' => '1',
+        'remove_footer_logo' => '1',
     ]);
 
     $removeResponse->assertRedirect(route('admin.settings.edit'));
     $settings->refresh();
     expect($settings->hero_image)->toBeNull();
     expect($settings->about_founder_image)->toBeNull();
+    expect($settings->header_logo)->toBeNull();
+    expect($settings->footer_logo)->toBeNull();
 });
 
 test('admin can create, update and delete a service', function () {

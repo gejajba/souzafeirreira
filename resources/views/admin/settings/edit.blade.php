@@ -26,6 +26,52 @@
                     <label class="block text-xs font-bold uppercase text-primary mb-1" for="meta_description">Descrição SEO (Meta Description)</label>
                     <textarea id="meta_description" name="meta_description" rows="2" class="w-full bg-surface-subtle p-2.5 text-sm border border-border-light focus:outline-none focus:border-secondary">{{ old('meta_description', $settings->meta_description) }}</textarea>
                 </div>
+                <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-surface p-4 border border-border-light space-y-3">
+                        <span class="block text-xs font-bold uppercase text-primary">Logo do Header</span>
+                        <div class="flex items-center gap-4">
+                            <div class="w-32 h-16 bg-surface-container overflow-hidden border border-border-light shrink-0 shadow-sm">
+                                <img id="header_logo_preview" src="{{ $settings->header_logo_url }}" alt="Prévia da logo do header" class="w-full h-full object-contain">
+                            </div>
+                            <div class="flex-1 space-y-2">
+                                <input type="file" id="header_logo" name="header_logo" accept="image/png,image/jpeg,image/webp" class="w-full text-xs text-on-surface file:mr-3 file:py-1.5 file:px-3 file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-surface-bright hover:file:bg-secondary cursor-pointer">
+                                <div id="header_logo_status" class="text-xs min-h-[18px]"></div>
+                                @error('header_logo')
+                                    <p class="text-xs text-rose-600 font-medium">{{ $message }}</p>
+                                @enderror
+                                <p class="text-[11px] text-text-muted">JPG, PNG ou WEBP, até 2MB.</p>
+                                @if($settings->header_logo)
+                                    <label class="inline-flex items-center gap-2 text-xs text-rose-700 cursor-pointer">
+                                        <input type="checkbox" name="remove_header_logo" value="1" class="rounded-none accent-rose-700">
+                                        <span>Restaurar logo padrão</span>
+                                    </label>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-surface p-4 border border-border-light space-y-3">
+                        <span class="block text-xs font-bold uppercase text-primary">Logo do Footer</span>
+                        <div class="flex items-center gap-4">
+                            <div class="w-32 h-16 bg-surface-container overflow-hidden border border-border-light shrink-0 shadow-sm">
+                                <img id="footer_logo_preview" src="{{ $settings->footer_logo_url }}" alt="Prévia da logo do footer" class="w-full h-full object-contain">
+                            </div>
+                            <div class="flex-1 space-y-2">
+                                <input type="file" id="footer_logo" name="footer_logo" accept="image/png,image/jpeg,image/webp" class="w-full text-xs text-on-surface file:mr-3 file:py-1.5 file:px-3 file:border-0 file:text-xs file:font-semibold file:bg-primary file:text-surface-bright hover:file:bg-secondary cursor-pointer">
+                                <div id="footer_logo_status" class="text-xs min-h-[18px]"></div>
+                                @error('footer_logo')
+                                    <p class="text-xs text-rose-600 font-medium">{{ $message }}</p>
+                                @enderror
+                                <p class="text-[11px] text-text-muted">JPG, PNG ou WEBP, até 2MB.</p>
+                                @if($settings->footer_logo)
+                                    <label class="inline-flex items-center gap-2 text-xs text-rose-700 cursor-pointer">
+                                        <input type="checkbox" name="remove_footer_logo" value="1" class="rounded-none accent-rose-700">
+                                        <span>Restaurar logo padrão</span>
+                                    </label>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -286,6 +332,8 @@
 
             setupImageOptimizer('about_founder_image', 'founder_preview', 'founder_status', 1400);
             setupImageOptimizer('hero_image', 'hero_preview', 'hero_status', 1800);
+            setupImageOptimizer('header_logo', 'header_logo_preview', 'header_logo_status', 1200);
+            setupImageOptimizer('footer_logo', 'footer_logo_preview', 'footer_logo_status', 1200);
         });
     </script>
     @endpush

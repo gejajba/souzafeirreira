@@ -10,7 +10,7 @@
             <div class="lg:col-span-4 flex flex-col items-start">
                 <a href="#home" class="flex items-center gap-3 mb-space-md">
                     <img
-                        src="{{ asset('img/logo.jpeg') }}"
+                        src="{{ $settings->footer_logo_url }}"
                         alt="{{ $settings->site_title }}"
                         class="h-12 w-auto object-contain rounded bg-white p-1"
                     >

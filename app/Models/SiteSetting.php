@@ -58,6 +58,31 @@ class SiteSetting extends Model
     }
 
     /**
+     * URL pública da logo exibida no cabeçalho.
+     */
+    public function getHeaderLogoUrlAttribute(): string
+    {
+        return $this->getLogoUrl($this->header_logo);
+    }
+
+    /**
+     * URL pública da logo exibida no rodapé.
+     */
+    public function getFooterLogoUrlAttribute(): string
+    {
+        return $this->getLogoUrl($this->footer_logo);
+    }
+
+    private function getLogoUrl(?string $logo): string
+    {
+        if ($logo && Storage::disk('public')->exists($logo)) {
+            return Storage::disk('public')->url($logo);
+        }
+
+        return asset('img/logo.jpeg');
+    }
+
+    /**
      * Obter a instância única de configurações do site.
      */
     public static function current(): self

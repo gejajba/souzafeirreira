@@ -39,6 +39,14 @@ class SettingController extends Controller
             ]);
         }
 
+        foreach (['header_logo' => 'A logo do header', 'footer_logo' => 'A logo do footer'] as $field => $label) {
+            if (isset($_FILES[$field]) && $_FILES[$field]['error'] === UPLOAD_ERR_INI_SIZE) {
+                return back()->withInput()->withErrors([
+                    $field => "{$label} ultrapassou o limite de upload do servidor (máximo 2MB).",
+                ]);
+            }
+        }
+
         $messages = [
             'about_founder_image.uploaded' => 'A foto do Dr. Marcelo não pôde ser enviada porque excede o limite do servidor (máximo 2MB). Por favor, envie uma imagem de até 2MB ou utilize a otimização automática.',
             'about_founder_image.image' => 'A foto do Dr. Marcelo deve ser um arquivo de imagem válido (JPG, PNG ou WEBP).',
@@ -48,11 +56,21 @@ class SettingController extends Controller
             'hero_image.image' => 'O banner do hero deve ser um arquivo de imagem válido (JPG, PNG ou WEBP).',
             'hero_image.mimes' => 'O banner do hero deve estar no formato JPG, PNG ou WEBP.',
             'hero_image.max' => 'O banner do hero não pode ser maior que 2MB.',
+            'header_logo.image' => 'A logo do header deve ser um arquivo de imagem válido (JPG, PNG ou WEBP).',
+            'header_logo.mimes' => 'A logo do header deve estar no formato JPG, PNG ou WEBP.',
+            'header_logo.max' => 'A logo do header não pode ser maior que 2MB.',
+            'footer_logo.image' => 'A logo do footer deve ser um arquivo de imagem válido (JPG, PNG ou WEBP).',
+            'footer_logo.mimes' => 'A logo do footer deve estar no formato JPG, PNG ou WEBP.',
+            'footer_logo.max' => 'A logo do footer não pode ser maior que 2MB.',
         ];
 
         $validated = $request->validate([
             'site_title' => ['required', 'string', 'max:255'],
             'site_subtitle' => ['required', 'string', 'max:255'],
+            'header_logo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'remove_header_logo' => ['nullable', 'boolean'],
+            'footer_logo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:2048'],
+            'remove_footer_logo' => ['nullable', 'boolean'],
             'meta_description' => ['nullable', 'string', 'max:500'],
             'location_badge' => ['required', 'string', 'max:255'],
             'hero_title' => ['required', 'string', 'max:255'],
@@ -112,7 +130,27 @@ class SettingController extends Controller
             unset($validated['about_founder_image']);
         }
 
-        unset($validated['remove_hero_image'], $validated['remove_about_founder_image']);
+        foreach (['header_logo', 'footer_logo'] as $field) {
+            $removeField = "remove_{$field}";
+
+            if ($request->hasFile($field)) {
+                if ($settings->{$field} && Storage::disk('public')->exists($settings->{$field})) {
+                    Storage::disk('public')->delete($settings->{$field});
+                }
+
+                $validated[$field] = $request->file($field)->store('settings', 'public');
+            } elseif ($request->boolean($removeField)) {
+                if ($settings->{$field} && Storage::disk('public')->exists($settings->{$field})) {
+                    Storage::disk('public')->delete($settings->{$field});
+                }
+
+                $validated[$field] = null;
+            } else {
+                unset($validated[$field]);
+            }
+        }
+
+        unset($validated['remove_hero_image'], $validated['remove_about_founder_image'], $validated['remove_header_logo'], $validated['remove_footer_logo']);
 
         $settings->update($validated);
 

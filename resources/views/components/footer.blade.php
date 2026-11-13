@@ -12,7 +12,7 @@
                     <img
                         src="{{ $settings->footer_logo_url }}"
                         alt="{{ $settings->site_title }}"
-                        class="h-12 w-auto object-contain rounded bg-white p-1"
+                        class="h-12 w-auto object-contain rounded-lg bg-white p-1"
                     >
                     <div>
                         <div class="font-headline-md text-headline-md text-surface-bright leading-none tracking-tight">

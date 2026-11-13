@@ -6,12 +6,20 @@
 <header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]" id="main-header">
     <div class="h-16 sm:h-20 max-w-[1440px] mx-auto px-4 sm:px-margin-mobile md:px-space-xl lg:px-margin flex items-center justify-between gap-3 sm:gap-gutter">
         <!-- Logo Oficial -->
-        <a class="group shrink-0 focus:outline-none" href="{{ route('home') }}">
+        <a class="group min-w-0 flex items-center gap-2 sm:gap-3 focus:outline-none" href="{{ route('home') }}">
             <img
                 src="{{ $settings->header_logo_url }}"
                 alt="{{ $settings->site_title }}"
-                class="h-10 sm:h-12 w-auto shrink-0 object-contain transition-transform group-hover:scale-105"
+                class="h-10 sm:h-12 w-auto shrink-0 rounded-lg object-contain transition-transform group-hover:scale-105"
             >
+            <div class="min-w-0 flex flex-col justify-center">
+                <span class="font-headline-sm text-base sm:text-headline-sm text-primary tracking-tight leading-none truncate transition-colors group-hover:text-secondary">
+                    {{ $settings->site_title }}
+                </span>
+                <span class="hidden min-[380px]:block font-label-caps text-label-caps text-secondary tracking-[0.16em] sm:tracking-[0.22em] uppercase mt-1">
+                    {{ $settings->site_subtitle }}
+                </span>
+            </div>
         </a>
 
         <!-- Navegação Desktop -->

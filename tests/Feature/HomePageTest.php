@@ -77,6 +77,21 @@ test('homepage renders successfully with all official content from souzapereira.
     $response->assertDontSee('Inscrição OAB/RS • Atendimento Personalizado');
 });
 
+test('homepage header renders the configured office identity beside a rounded logo', function () {
+    $response = $this->get('/');
+
+    $response->assertOk();
+
+    $header = str($response->getContent())
+        ->between('<header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]" id="main-header">', '</header>')
+        ->toString();
+
+    expect($header)
+        ->toContain('Souza Pereira Advocacia')
+        ->toContain('Advocacia Estratégica')
+        ->toContain('rounded-lg');
+});
+
 test('lgpd page renders successfully with privacy governance details', function () {
     $response = $this->get('/lgpd');
 
